@@ -1,0 +1,110 @@
+
+\chapter{METHODOLOGY}
+
+This chapter delineates the experimental framework designed to rigorously evaluate and compare Graph Neural Network architectures. It details the modular system architecture, the statistical characteristics of the benchmark datasets, the layer-wise construction of the implemented models, and the optimization protocols employed to ensure a controlled and reproducible experimental environment.
+
+\section{System Architecture Overview}
+
+The experimental pipeline is engineered using Python 3.x and the PyTorch Geometric (PyG) library, leveraging its sparse matrix operations for efficient graph processing. The system follows a modular object-oriented design consisting of four distinct operational stages:
+
+\begin{enumerate}
+    \item \textbf{Data Ingestion \& Preprocessing:} The pipeline utilizes the \texttt{Planetoid} class to interface with benchmark repositories. This module handles the automatic download, normalization of bag-of-words features (row-wise summation), and the partitioning of data into non-overlapping boolean masks: \texttt{train\_mask}, \texttt{val\_mask}, and \texttt{test\_mask}.
+    
+    \item \textbf{Model Initialization:} The system dynamically instantiates GNN architectures based on runtime configurations. This involves defining the computational graph, initializing learnable parameters (weights and biases), and transferring the model to the appropriate hardware accelerator (CUDA-enabled GPU or CPU).
+    
+    \item \textbf{Training Engine:} A custom \texttt{Trainer} class encapsulates the optimization loop. It manages the forward pass, computation of the Negative Log-Likelihood (NLL) loss, gradient backpropagation, and parameter updates via the Adam optimizer.
+    
+    \item \textbf{Inference \& Telemetry:} The evaluation module operates in a \texttt{torch.no\_grad()} context to prevent gradient tracking during validation. It computes macro-averaged metrics (F1-score, Precision, Recall) to account for class imbalance and logs training dynamics for post-hoc analysis.
+\end{enumerate}
+
+\section{Dataset Description}
+
+The study utilizes two canonical citation network datasets, \textbf{Cora} and \textbf{PubMed}, which serve as standard benchmarks for transductive node classification \cite{review2024khemani}. In these graphs, nodes represent scientific publications, and undirected edges represent citation links.
+
+\begin{itemize}
+    \item \textbf{Node Features:} The input feature matrix $X \in \mathbb{R}^{N \times F}$ consists of sparse bag-of-words vectors, where $F$ is the vocabulary size.
+    \item \textbf{Target Labels:} The label vector $Y \in \mathbb{R}^N$ represents the academic topic of each document.
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\caption{Statistical Summary of Benchmark Datasets}
+\label{tab:datasets}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Dataset} & \textbf{Nodes ($N$)} & \textbf{Edges ($|E|$)} & \textbf{Features ($F$)} & \textbf{Classes ($C$)}\\ \hline
+\textbf{Cora}    & 2,708          & 10,556         & 1,433             & 7                \\ \hline
+\textbf{PubMed}  & 19,717         & 44,338         & 500               & 3                \\ \hline
+\end{tabular}
+\end{table}
+
+The datasets employ a fixed split to ensure comparability with state-of-the-art baselines: the training set comprises 20 samples per class, the validation set contains 500 samples, and the test set contains 1,000 samples.
+
+\section{GNN Models Implemented}
+
+We implemented two fundamental GNN architectures to contrast spectral versus spatial message-passing paradigms. Both models utilize a standardized two-layer structure:
+$$ \text{Input} \xrightarrow{\text{Layer 1}} \text{Hidden (64)} \xrightarrow{\text{ReLU, Dropout}} \text{Layer 2} \xrightarrow{\text{LogSoftmax}} \text{Output} $$
+
+\subsection{Graph Convolutional Network (GCN)}
+The GCN implementation is based on the spectral graph convolution operator defined by \cite{comprehensive2021wu}. The layer-wise propagation rule is implemented via the \texttt{GCNConv} operator:
+
+\begin{equation}
+    H^{(l+1)} = \sigma \left( \hat{D}^{-1/2} \hat{A} \hat{D}^{-1/2} H^{(l)} W^{(l)} \right)
+\end{equation}
+
+where $\hat{A} = A + I$ is the adjacency matrix with inserted self-loops, and $\hat{D}$ is its diagonal degree matrix.
+\begin{itemize}
+    \item \textbf{Hidden Dimension:} 64 units.
+    \item \textbf{Regularization:} A Dropout layer ($p=0.5$) is injected between the two convolution layers to randomly zero out elements of the feature vector during training, mitigating overfitting on the small training split.
+    \item \textbf{Output:} The final layer maps the hidden representation to $C$ classes, followed by a \texttt{LogSoftmax} activation for numerical stability during loss calculation.
+\end{itemize}
+
+\subsection{GraphSAGE}
+The GraphSAGE model represents a spatial inductive framework. Unlike GCN, which relies on the full graph Laplacian, GraphSAGE learns aggregator functions that sample and pool features from local neighborhoods \cite{review2024khemani}. We utilize the \texttt{SAGEConv} operator with a \textbf{Mean Aggregation} strategy:
+
+\begin{equation}
+    h_v^{(l+1)} = W^{(l+1)} \cdot \left[ h_v^{(l)} \, \| \, \text{mean}(\{h_u^{(l)}, \forall u \in \mathcal{N}(v)\}) \right]
+\end{equation}
+
+\begin{itemize}
+    \item \textbf{Architecture:} It mirrors the GCN's depth (2 layers) and width (64 hidden channels) to isolate the impact of the aggregation mechanism.
+    \item \textbf{Aggregation Logic:} The model aggregates neighbor features by computing their element-wise mean, concatenates the result with the node's own feature, and projects it via a linear transformation.
+\end{itemize}
+
+\section{Training and Evaluation Setup}
+
+The training process is governed by a rigorous protocol to ensure convergence and fair comparison.
+
+\subsection{Optimization Configuration}
+The model parameters are optimized using the \textbf{Adam} algorithm, a stochastic gradient descent variant with adaptive moment estimation.
+\begin{itemize}
+    \item \textbf{Learning Rate ($\eta$):} Set to $0.01$ for robust convergence.
+    \item \textbf{Weight Decay ($L_2$ Regularization):} Set to $5 \times 10^{-4}$ to penalize large weights and prevent overfitting.
+    \item \textbf{Epochs:} The models are trained for a fixed duration of 150 epochs.
+\end{itemize}
+
+\subsection{Loss Function}
+The node classification task is formulated as minimizing the \textbf{Negative Log-Likelihood (NLL) Loss}. Since the model output applies `LogSoftmax`, the loss for a single node $i$ with true class label $y_i$ is computed as:
+
+\begin{equation}
+    \mathcal{L} = - \log(p_{i, y_i})
+\end{equation}
+
+During training, this loss is computed only over the nodes present in the \texttt{train\_mask}, while gradients are backpropagated through the entire computational graph to update edge weights effectively.
+
+\subsection{Evaluation Metrics}
+To assess classification performance comprehensively, particularly given potential class imbalances, we report:
+\begin{itemize}
+    \item \textbf{Accuracy:} The global percentage of correct predictions.
+    \item \textbf{Macro F1-Score:} The unweighted mean of F1-scores per class, treating all classes as equally important regardless of support size.
+    \item \textbf{Computational Efficiency:} We explicitly measure the \textit{Time per Epoch} and \textit{Total Training Time} to evaluate the scalability of the spectral matrix operations (GCN) versus spatial aggregation (GraphSAGE).
+\end{itemize}
+
+\section{Experimental Environment}
+
+Experiments were conducted on a high-performance computing environment to ensure consistent latency measurements.
+\begin{itemize}
+    \item \textbf{Framework:} PyTorch 1.x with PyTorch Geometric (PyG).
+    \item \textbf{Visualization:} Matplotlib and Seaborn for generating training curves and confusion matrices; NetworkX for graph structure rendering.
+    \item \textbf{Hardware:} The system logic automatically detects CUDA availability. All reported time metrics assume execution on the primary available accelerator (GPU if available, otherwise CPU).
+\end{itemize}

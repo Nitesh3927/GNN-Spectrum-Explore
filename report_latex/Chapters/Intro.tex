@@ -1,0 +1,48 @@
+% \chapter{INTRODUCTION}
+
+% \section{Background and Motivation}
+
+% Deep learning has revolutionized many machine learning tasks in recent years, ranging from image classification and video processing to speech recognition and natural language understanding, where the data are typically represented in the Euclidean space \cite{comprehensive2021wu}. However, there is an increasing number of applications where data are generated from **non-Euclidean domains** and must be represented as graphs with complex relationships and interdependency between objects \cite{comprehensive2021wu}. Graphs are pervasive data structures used for modeling various real-world systems, including social networks, molecular structures in chemistry, traffic networks, and citation networks \cite{comprehensive2021wu}. Analyzing graph data is paramount for gaining insights into intricate patterns, uncovering hidden structures, and understanding the dynamics of interconnected systems \cite{realworld2025ju}.
+
+% The complexity inherent in graph data poses significant challenges to conventional machine learning algorithms designed for regular Euclidean data \cite{comprehensive2021wu}. Unlike image data, which can be represented as a regular grid, a graph can be irregular, featuring a variable size of unordered nodes, and nodes may have a differing number of neighbors, resulting in operations (e.g., convolutions) being difficult to apply directly to the graph domain \cite{comprehensive2021wu}.
+
+% In response to these challenges, **Graph Neural Networks (GNNs)** have emerged as a pivotal technology \cite{review2024khemani}, demonstrating remarkable success in handling complex relationships and intricate structural information inherent in graph-structured data \cite{methods2020zhou, review2024khemani}. GNNs are deep learning models designed to capture the dependence of graphs primarily via a **message-passing mechanism** between nodes \cite{methods2020zhou, review2024khemani}. The success of GNNs is partially motivated by extending the core ideas of deep neural architectures, such as Convolutional Neural Networks (CNNs), to generalize convolution operations to graph data \cite{comprehensive2021wu}. This field has since experienced significant growth, leading to the development of numerous powerful variants, including Graph Convolutional Networks (GCNs) and Graph Attention Networks (GATs) \cite{methods2020zhou, review2024khemani}.
+
+% The rapid development and diversification of the GNN landscape necessitate a focused exploration and comparison of existing architectural approaches \cite{review2024khemani}. By systematically investigating different GNN architectures, the aim is to gain a holistic understanding of their foundational mechanisms, evaluate their performance trade-offs, and determine their suitability for various data characteristics and learning tasks.
+
+
+\chapter{INTRODUCTION}
+
+\section{Background and Motivation}
+
+Deep learning has revolutionized many machine learning tasks in recent years, ranging from image classification and video processing to speech recognition and natural language understanding, where the data are typically represented in the Euclidean space \cite{comprehensive2021wu}. However, there is an increasing number of applications where data are generated from \textbf{non-Euclidean domains} and must be represented as graphs with complex relationships and interdependency between objects \cite{comprehensive2021wu}. 
+
+Graphs are pervasive data structures used for modeling various real-world systems. In social science, social networks model relationships between individuals; in natural science, graphs model physical systems and molecular structures; and in knowledge graphs, they represent entities and relations \cite{methods2020zhou}. Analyzing graph data is paramount for gaining insights into intricate patterns, uncovering hidden structures, and understanding the dynamics of interconnected systems \cite{realworld2025ju}.
+
+Despite the ubiquity of graph data, its complexity imposes significant challenges on existing machine learning algorithms \cite{comprehensive2021wu}. To address this, Graph Neural Networks (GNNs) have emerged as a powerful tool. GNNs are neural models that capture the dependence of graphs via message passing between the nodes of graphs \cite{methods2020zhou}. By iteratively aggregating information from neighboring nodes, GNNs can capture the intricate structural information inherent in the data \cite{review2024khemani}. The rapid evolution of GNNs has led to variants such as Graph Convolutional Networks (GCNs) and GraphSAGE, which have demonstrated ground-breaking performances on many deep learning tasks \cite{methods2020zhou}. The motivation for this study stems from the need to systematically explore these architectures to understand their comparative strengths on standard benchmarks.
+
+\section{Problem Statement and Aim}
+
+While deep learning has achieved remarkable success on Euclidean data (e.g., images and text), standard neural networks like Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs) struggle to handle graph data directly \cite{comprehensive2021wu}. This is primarily because graphs are irregular, may have a variable size of unordered nodes, and nodes may have a different number of neighbors \cite{comprehensive2021wu}. Consequently, defining operations such as convolution, which are straightforward in the image domain, becomes difficult in the graph domain \cite{comprehensive2021wu}.
+
+Furthermore, while numerous GNN variants exist, selecting the appropriate architecture remains a critical challenge. For instance, spectral-based approaches like GCN rely on the graph Laplacian, whereas spatial-based approaches like GraphSAGE perform convolution by aggregating neighbor information directly \cite{comprehensive2021wu, review2024khemani}. The aim of this project is to implement and compare these two fundamental GNN architectures—Graph Convolutional Networks (GCN) and GraphSAGE—on benchmark citation network datasets. By evaluating their performance under a unified experimental setup, this study aims to provide empirical insights into their representation learning capabilities.
+
+\section{Objectives of the Study}
+
+The primary objectives of this research are as follows:
+
+\begin{itemize}
+    \item To conduct a comprehensive literature review on the taxonomy of Graph Neural Networks, categorizing them into Recurrent GNNs, Convolutional GNNs, Graph Autoencoders, and Spatial-Temporal GNNs as defined in \cite{comprehensive2021wu}.
+    \item To implement two distinct GNN architectures: the spectral-based Graph Convolutional Network (GCN) and the spatial-based GraphSAGE.
+    \item To evaluate and compare the performance of these models on standard benchmark datasets (e.g., Cora and PubMed) using metrics such as accuracy and F1-score.
+    \item To analyze the training dynamics and visualize the learned graph structures to understand the operational differences between the selected models.
+\end{itemize}
+
+\section{Organization of the Report}
+
+The remainder of this report is organized into five chapters, structured as follows:
+
+\textbf{Chapter 2: Literature Review} provides a comprehensive overview of the current state of Graph Neural Networks. It introduces the fundamental message-passing mechanisms and presents a detailed taxonomy of GNN models, categorizing them into Recurrent Graph Neural Networks (RecGNNs), Convolutional Graph Neural Networks (ConvGNNs), Graph Autoencoders (GAEs), and Spatial-Temporal Graph Neural Networks (STGNNs), as systematically surveyed by \cite{comprehensive2021wu, review2024khemani}. Furthermore, this chapter highlights key applications of GNNs in structural and non-structural scenarios \cite{methods2020zhou}.
+\textbf{Chapter 3: Methodology} details the system architecture and experimental design adopted for this study. It provides descriptions of the benchmark datasets used (Cora and PubMed) and explains the specific architectures implemented: the spectral-based Graph Convolutional Network (GCN) and the spatial-based GraphSAGE. The training protocols, evaluation metrics, and experimental environment are also defined in this chapter.
+\textbf{Chapter 4: Results and Discussion} presents the empirical findings of the study. It includes a comparative analysis of the GCN and GraphSAGE models in terms of classification accuracy, F1-score, and training time. Additionally, this chapter provides visualizations of the learned node embeddings and analyzes the training curves to interpret the convergence behaviors of the models.
+\textbf{Chapter 5: Conclusion and Future Scope} summarizes the key findings and contributions of this work. It discusses the limitations of the current study and outlines potential avenues for future research, including the exploration of GNNs for graphs with heterophily \cite{heterophily2021zheng}, Dynamic Graph Neural Networks (DGNNs) \cite{dynamic2025zheng}, and robust learning under real-world conditions such as data imbalance and noise \cite{realworld2025ju}.

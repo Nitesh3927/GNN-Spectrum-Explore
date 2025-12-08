@@ -1,0 +1,61 @@
+\contentsline {chapter}{Candidate's Declaration}{i}{}%
+\contentsline {chapter}{Certificate}{ii}{}%
+\contentsline {chapter}{Acknowledgement}{iii}{}%
+\contentsline {chapter}{Abstract}{iv}{}%
+\contentsline {chapter}{Content}{vi}{}%
+\contentsline {chapter}{List of Tables}{vii}{}%
+\contentsline {chapter}{List of Figures}{viii}{}%
+\contentsline {chapter}{List of Symbols}{ix}{}%
+\contentsline {chapter}{\numberline {1}INTRODUCTION}{1}{}%
+\contentsline {section}{\numberline {1.1}Background and Motivation}{1}{}%
+\contentsline {section}{\numberline {1.2}Problem Statement and Aim}{1}{}%
+\contentsline {section}{\numberline {1.3}Objectives of the Study}{2}{}%
+\contentsline {section}{\numberline {1.4}Organization of the Report}{2}{}%
+\contentsline {chapter}{\numberline {2}LITERATURE REVIEW}{3}{}%
+\contentsline {section}{\numberline {2.1}Overview of Graph Neural Networks}{3}{}%
+\contentsline {subsection}{\numberline {2.1.1}Graph Definitions and Notation}{3}{}%
+\contentsline {subsection}{\numberline {2.1.2}The Message Passing Mechanism}{3}{}%
+\contentsline {section}{\numberline {2.2}Taxonomy of Core GNN Architectures}{4}{}%
+\contentsline {subsection}{\numberline {2.2.1}Recurrent Graph Neural Networks (RecGNNs)}{4}{}%
+\contentsline {subsection}{\numberline {2.2.2}Convolutional Graph Neural Networks (ConvGNNs)}{4}{}%
+\contentsline {subsubsection}{Spectral-based Approaches}{4}{}%
+\contentsline {subsubsection}{Spatial-based Approaches}{4}{}%
+\contentsline {subsection}{\numberline {2.2.3}Graph Autoencoders (GAEs)}{5}{}%
+\contentsline {subsection}{\numberline {2.2.4}Spatial-Temporal Graph Neural Networks (STGNNs)}{5}{}%
+\contentsline {section}{\numberline {2.3}Advanced GNN Learning Paradigms}{5}{}%
+\contentsline {subsection}{\numberline {2.3.1}Dynamic Graph Neural Networks}{5}{}%
+\contentsline {subsection}{\numberline {2.3.2}Self-Supervised Learning on Graphs}{5}{}%
+\contentsline {subsubsection}{Contrastive Learning Models}{6}{}%
+\contentsline {subsubsection}{Predictive Learning Models}{6}{}%
+\contentsline {section}{\numberline {2.4}Challenges in Real-World Scenarios}{6}{}%
+\contentsline {subsection}{\numberline {2.4.1}Heterophily vs. Homophily in Graphs}{6}{}%
+\contentsline {subsubsection}{Limitations of Homophilic GNNs}{6}{}%
+\contentsline {subsubsection}{Architectural Solutions}{6}{}%
+\contentsline {subsection}{\numberline {2.4.2}Data Quality and Reliability}{7}{}%
+\contentsline {section}{\numberline {2.5}Applications of GNNs}{7}{}%
+\contentsline {subsection}{\numberline {2.5.1}Structural Scenarios}{7}{}%
+\contentsline {subsection}{\numberline {2.5.2}Non-Structural Scenarios}{8}{}%
+\contentsline {section}{\numberline {2.6}Summary of Research Gaps}{8}{}%
+\contentsline {chapter}{\numberline {3}METHODOLOGY}{9}{}%
+\contentsline {section}{\numberline {3.1}System Architecture Overview}{9}{}%
+\contentsline {section}{\numberline {3.2}Dataset Description}{9}{}%
+\contentsline {section}{\numberline {3.3}GNN Models Implemented}{10}{}%
+\contentsline {subsection}{\numberline {3.3.1}Graph Convolutional Network (GCN)}{10}{}%
+\contentsline {subsection}{\numberline {3.3.2}GraphSAGE}{11}{}%
+\contentsline {section}{\numberline {3.4}Training and Evaluation Setup}{11}{}%
+\contentsline {subsection}{\numberline {3.4.1}Optimization Configuration}{11}{}%
+\contentsline {subsection}{\numberline {3.4.2}Loss Function}{11}{}%
+\contentsline {subsection}{\numberline {3.4.3}Evaluation Metrics}{11}{}%
+\contentsline {section}{\numberline {3.5}Experimental Environment}{12}{}%
+\contentsline {chapter}{\numberline {4}RESULTS AND DISCUSSION}{13}{}%
+\contentsline {section}{\numberline {4.1}Model Performance Comparison}{13}{}%
+\contentsline {subsection}{\numberline {4.1.1}Results on Cora Dataset}{13}{}%
+\contentsline {subsection}{\numberline {4.1.2}Results on PubMed Dataset}{13}{}%
+\contentsline {section}{\numberline {4.2}Computational Efficiency Analysis}{14}{}%
+\contentsline {section}{\numberline {4.3}Training Dynamics}{14}{}%
+\contentsline {section}{\numberline {4.4}Visualization of Graph Structure}{14}{}%
+\contentsline {section}{\numberline {4.5}Discussion of Observations}{15}{}%
+\contentsline {chapter}{\numberline {5}CONCLUSION AND FUTURE SCOPE}{17}{}%
+\contentsline {section}{\numberline {5.1}Summary of Findings}{17}{}%
+\contentsline {section}{\numberline {5.2}Limitations}{17}{}%
+\contentsline {section}{\numberline {5.3}Future Scope}{18}{}%

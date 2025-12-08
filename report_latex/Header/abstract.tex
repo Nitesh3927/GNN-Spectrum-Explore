@@ -1,0 +1,16 @@
+
+\begin{center}
+    
+\vspace*{0.3in}
+
+\Large{\textbf{Abstract}}
+
+\vspace{5mm}
+\end{center}
+
+\begin{doublespace}
+Graph Neural Networks (GNNs) have emerged as the de facto standard for learning on non-Euclidean domains, enabling breakthroughs in fields ranging from social network analysis to bioinformatics. This report provides a comprehensive study of the GNN landscape, bridging theoretical foundations with empirical analysis. We first present an extensive literature review covering the taxonomy of GNNs, including Recurrent, Convolutional, and Spatial-Temporal architectures, while also addressing advanced paradigms such as Dynamic GNNs and Self-Supervised Learning. Furthermore, we critically analyze deployment challenges in real-world scenarios, including graph heterophily, data imbalance, and out-of-distribution generalization.
+
+To empirically evaluate foundational message-passing mechanisms, we implement and compare two distinct architectures: the spectral-based Graph Convolutional Network (GCN) and the spatial-based GraphSAGE. Using the Cora and PubMed benchmark datasets, we assess model performance in terms of classification accuracy and computational efficiency. Our results demonstrate that while GraphSAGE achieves a marginal accuracy advantage on the feature-rich Cora dataset ($80.70\%$ vs. $80.30\%$), the GCN architecture proves significantly more robust on the larger PubMed graph ($79.20\%$ vs. $76.70\%$). Crucially, the spectral GCN consistently outperforms GraphSAGE in computational speed, training approximately $2\times$ faster across both benchmarks. These findings underscore the trade-offs between spectral efficiency and spatial expressivity, suggesting that GCN remains a superior baseline for transductive tasks on homophilic citation networks.
+
+\end{doublespace}

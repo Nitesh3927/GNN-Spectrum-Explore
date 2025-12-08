@@ -1,0 +1,88 @@
+% \chapter*{\centerline{List of Symbols}}
+% \addcontentsline{toc}{chapter}{List of Symbols, Abbreviations}
+
+% \begin{singlespace}
+% \begin{tabbing}
+% xxxxxxxxxxx \= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \kill
+% \textbf{$r$}  \> Radius, $m$ \\
+% \textbf{$\alpha$}  \> Angle of thesis in degrees \\
+% \textbf{$\beta$}   \> Flight path in degrees \\
+% \end{tabbing}
+% \end{singlespace}
+
+
+% \chapter*{\centerline{List of Symbols}}
+% \addcontentsline{toc}{chapter}{List of Symbols}
+
+% \begin{singlespace}
+% \begin{tabbing}
+% xxxxxxxxxxx \= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \kill
+% \textbf{$G$}   \> Graph structure, defined as $(V, E)$ \\
+% \textbf{$V$}   \> Set of vertices (nodes) in the graph \\
+% \textbf{$E$}   \> Set of edges (links) in the graph \\
+% \textbf{$N$}   \> Number of nodes, $|V|$ \\
+% \textbf{$v_i$} \> A specific node in the graph \\
+% \textbf{$e_{ij}$} \> An edge connecting node $v_i$ to node $v_j$ \\
+% \textbf{$N(v)$} \> Neighborhood set of node $v$ \\
+% \textbf{$A$}   \> Adjacency matrix of the graph, $\in \mathbb{R}^{N \times N}$ \\
+% \textbf{$D$}   \> Degree matrix of the graph (diagonal) \\
+% \textbf{$X$}   \> Node feature matrix, $\in \mathbb{R}^{N \times d}$ \\
+% \textbf{$x_v$} \> Feature vector of node $v$ \\
+% \textbf{$H^{(l)}$} \> Hidden representation matrix at layer $l$ \\
+% \textbf{$h_v^{(l)}$} \> Hidden state vector of node $v$ at layer $l$ \\
+% \textbf{$W^{(l)}$} \> Learnable weight matrix at layer $l$ \\
+% \textbf{$\sigma$} \> Non-linear activation function (e.g., ReLU) \\
+% \textbf{$\hat{A}$} \> Adjacency matrix with added self-loops \\
+% \textbf{$\hat{D}$} \> Degree matrix of $\hat{A}$ \\
+% \textbf{$L$}   \> Graph Laplacian matrix \\
+% \textbf{$y_i$} \> True class label for node $i$ \\
+% \textbf{$\hat{y}_i$} \> Predicted class label/probability for node $i$ \\
+% \textbf{$\mathcal{L}$} \> Loss function (e.g., Negative Log-Likelihood) \\
+% \end{tabbing}
+% \end{singlespace}
+
+\chapter*{\centerline{List of Symbols}}
+\addcontentsline{toc}{chapter}{List of Symbols}
+
+% \begin{singlespace}
+% Define a longtable: 
+% p{2.5cm} defines the width of the symbol column
+% p{12cm} defines the width of the description column (adjust if your margins are different)
+\begin{longtable}{p{4cm} p{10cm}}
+
+\textbf{Symbol} & \textbf{Description} \\ \hline 
+\endhead % This repeats the header if the list spans multiple pages
+
+% --- Graph Notations ---
+$G$ & Graph structure, formally defined as a tuple $(V, E)$ \\
+$V$ & Set of vertices (nodes) in the graph \\
+$E$ & Set of edges (links) representing relationships \\
+$N$ & Total number of nodes in the graph, denoted as $|V|$ \\
+$v_i$ & A specific node $i$ in the vertex set $V$ \\
+$e_{ij}$ & An edge connecting node $v_i$ to node $v_j$ \\
+$\mathcal{N}(v)$ & Neighborhood set of node $v$ (nodes connected to $v$) \\
+
+% --- Matrix Notations ---
+$A$ & Adjacency matrix of the graph, $A \in \mathbb{R}^{N \times N}$ \\
+$D$ & Degree matrix of the graph (diagonal matrix where $D_{ii} = \sum_j A_{ij}$) \\
+$X$ & Node feature matrix containing attributes, $X \in \mathbb{R}^{N \times d}$ \\
+$x_v$ & Feature vector of a specific node $v$ \\
+$L$ & Graph Laplacian matrix, defined as $D - A$ \\
+
+% --- Neural Network Notations ---
+$H^{(l)}$ & Hidden representation matrix at network layer $l$ \\
+$h_v^{(l)}$ & Hidden state embedding of node $v$ at layer $l$ \\
+$W^{(l)}$ & Learnable weight matrix at layer $l$ \\
+$\sigma(\cdot)$ & Non-linear activation function (e.g., ReLU, Softmax) \\
+$\hat{A}$ & Adjacency matrix with added self-loops ($\hat{A} = A + I$) \\
+$\hat{D}$ & Diagonal degree matrix of $\hat{A}$ \\
+
+% --- Learning & Prediction ---
+$y_i$ & Ground truth class label for node $i$ \\
+$\hat{y}_i$ & Predicted class probability distribution for node $i$ \\
+$\mathcal{L}$ & Loss function (Negative Log-Likelihood) \\
+$D_{in}$ & Dimensionality of input features \\
+$D_{out}$ & Dimensionality of the output classes \\
+
+\end{longtable}
+% \end{singlespace}

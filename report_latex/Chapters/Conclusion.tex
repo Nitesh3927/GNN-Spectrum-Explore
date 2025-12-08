@@ -1,0 +1,43 @@
+\chapter{CONCLUSION AND FUTURE SCOPE}
+
+This chapter synthesizes the findings of the comparative analysis, acknowledges the limitations of the current experimental design, and proposes strategic directions for future research based on the emerging trends identified in the literature.
+
+\section{Summary of Findings}
+
+This project set out to evaluate the comparative strengths of spectral and spatial Graph Neural Networks. Through the implementation and testing of Graph Convolutional Networks (GCN) and GraphSAGE on standard citation benchmarks, several key conclusions have emerged:
+
+\begin{itemize}
+    \item \textbf{No "One-Size-Fits-All" Architecture:} The results debunk the notion that a single GNN architecture is universally superior. While GraphSAGE achieved a marginal accuracy gain on the Cora dataset (80.70\% vs. 80.30\%), GCN proved significantly more robust on the larger PubMed dataset (79.20\% vs. 76.70\%). This suggests that spatial aggregation benefits from rich feature sets, while spectral aggregation excels in capturing global structural properties in sparser environments.
+    
+    \item \textbf{Computational Trade-offs:} The GCN architecture demonstrated superior computational efficiency. Across both datasets, the GCN training time was approximately half that of GraphSAGE. This confirms that for transductive learning on static graphs, the matrix-based spectral operations of GCN are far more efficient than the explicit neighbor sampling required by spatial methods.
+    
+    \item \textbf{Convergence Behavior:} Both models exhibited rapid convergence, but GCN showed greater stability. GraphSAGE's performance on the larger PubMed graph indicates that without careful tuning of aggregation functions, spatial methods may struggle to generalize as effectively as spectral methods on certain topologies.
+\end{itemize}
+
+\section{Limitations}
+
+While this study provides valuable insights, it is subject to specific constraints that define the boundary of the results:
+
+\begin{itemize}
+    \item \textbf{Homophily Bias:} Both Cora and PubMed are highly homophilic datasets (cited papers tend to belong to the same topic). This study does not evaluate how these models perform on heterophilic graphs, where connected nodes have dissimilar labels, a scenario where standard GNNs often fail \cite{heterophily2021zheng}.
+    
+    \item \textbf{Transductive Setting:} The experiments were conducted in a transductive setting, where the full graph structure is known during training. This does not fully test the inductive capabilities of GraphSAGE, which is theoretically designed to generalize to unseen nodes \cite{review2024khemani}.
+    
+    \item \textbf{Dataset Scale:} Although PubMed is larger than Cora, it still qualifies as a medium-scale dataset. The study does not address the scalability challenges associated with billion-scale graphs found in industrial applications \cite{realworld2025ju}.
+\end{itemize}
+
+\section{Future Scope}
+
+Guided by the limitations of this study and recent advancements in the field, future work should expand in the following directions:
+
+\begin{itemize}
+    \item \textbf{Handling Heterophily:} Future experiments should benchmark these models on heterophilic datasets (e.g., transaction networks) and explore specialized architectures that decouple node and neighbor embeddings to prevent the "oversmoothing" of distinct features \cite{heterophily2021zheng}.
+    
+    \item \textbf{Dynamic Graph Learning:} Real-world networks evolve over time. Extending the framework to include Dynamic GNNs (DGNNs) would allow for the modeling of temporal evolution in Discrete-Time (DTDGs) and Continuous-Time (CTDGs) scenarios, capturing trends that static models miss \cite{dynamic2025zheng}.
+    
+    \item \textbf{Robustness and Reliability:} Investigating the performance of GNNs under non-ideal conditions is critical. Future work should assess model robustness against class imbalance, label noise, and adversarial attacks, utilizing re-balancing strategies and structure learning to enhance reliability \cite{realworld2025ju}.
+    
+    \item \textbf{Self-Supervised Learning (SSL):} To address label scarcity, future iterations of this project could implement Self-Supervised Learning paradigms. Integrating contrastive learning objectives (e.g., graph augmentation and mutual information maximization) could significantly improve representation quality without reliance on large labeled datasets \cite{selfsupervised2022xie}.
+\end{itemize}
+
+In conclusion, while foundational models like GCN and GraphSAGE provide a powerful baseline, the future of graph deep learning lies in specialized architectures that can handle the dynamic, heterophilic, and noisy nature of real-world data.

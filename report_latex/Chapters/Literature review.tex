@@ -1,0 +1,174 @@
+\chapter{LITERATURE REVIEW}
+
+% % ---------------------------------------------------------------------
+% % Covers foundational concepts from Wu et al. and Zhou et al.
+% % ---------------------------------------------------------------------
+% \section{Overview of Graph Neural Networks}
+%     \subsection{Graph Definitions and Notation}
+%     \subsection{The Message Passing Mechanism}
+
+% % ---------------------------------------------------------------------
+% % Covers the main taxonomy from Wu et al., Zhou et al., and Khemani et al.
+% % ---------------------------------------------------------------------
+% \section{Taxonomy of Core GNN Architectures}
+%     \subsection{Recurrent Graph Neural Networks (RecGNNs)}
+%     \subsection{Convolutional Graph Neural Networks (ConvGNNs)}
+%         \subsubsection{Spectral-based Approaches}
+%         \subsubsection{Spatial-based Approaches}
+%     \subsection{Graph Autoencoders (GAEs)}
+%     \subsection{Spatial-Temporal Graph Neural Networks (STGNNs)}
+\section{Overview of Graph Neural Networks}
+
+\subsection{Graph Definitions and Notation}
+A graph is formally represented as $G = (V, E)$, where $V$ is the set of vertices (nodes) and $E$ is the set of edges representing relationships between these nodes \cite{comprehensive2021wu}. Let $v_i \in V$ denote a node and $e_{ij} = (v_i, v_j) \in E$ denote an edge pointing from $v_i$ to $v_j$. The structural information of the graph is mathematically captured by an adjacency matrix $A \in \mathbb{R}^{n \times n}$, while node attributes are represented by a feature matrix $X \in \mathbb{R}^{n \times d}$ \cite{comprehensive2021wu}.
+
+To understand the diverse landscape of GNN applications, it is essential to define the various types of graph structures encountered in real-world scenarios:
+
+\begin{itemize}
+    \item \textbf{Directed vs. Undirected Graphs:} In directed graphs, edges possess a specific direction (e.g., citation networks where paper A cites paper B), indicating a one-way flow of information. Conversely, undirected graphs have bidirectional edges (e.g., friendship in social networks), representing mutual interactions \cite{comprehensive2021wu}.
+    
+    \item \textbf{Homogeneous vs. Heterogeneous Graphs:} Homogeneous graphs consist of a single type of node and edge. Heterogeneous graphs, however, involve multiple types of nodes and edges (e.g., a bibliographic network containing authors, papers, and venues), requiring models to handle diverse semantic information \cite{comprehensive2021wu, dynamic2025zheng}.
+    
+    \item \textbf{Static vs. Dynamic Graphs:} Static graphs possess a fixed structure and feature set during processing. Dynamic graphs evolve over time, with nodes or edges appearing and disappearing, requiring the model to account for temporal dependencies alongside spatial structures \cite{dynamic2025zheng}.
+    
+    \item \textbf{Homophily vs. Heterophily:} Most standard GNNs assume \textit{homophily}, where connected nodes tend to share similar features or labels (e.g., friends sharing interests). However, many real-world graphs exhibit \textit{heterophily}, where linked nodes have dissimilar features and different class labels (e.g., fraudsters connecting to regular customers in transaction networks) \cite{heterophily2021zheng}.
+\end{itemize}
+
+\subsection{The Message Passing Mechanism}
+The core mechanism driving modern Graph Neural Networks is the Message Passing paradigm. Rather than relying on fixed grid structures like Convolutional Neural Networks (CNNs), GNNs capture graph dependencies via an iterative process of information propagation \cite{review2024khemani}.
+
+Conceptually, this process involves two main phases for every node in the graph:
+\begin{enumerate}
+    \item \textbf{Aggregation:} A node gathers "messages" (feature vectors) from its local neighborhood. This step captures the structural context of the node.
+    \item \textbf{Update:} The node combines this aggregated neighborhood information with its own previous state to generate a new, enriched embedding.
+\end{enumerate}
+By stacking multiple layers of this mechanism, a node can progressively capture information from nodes further away in the graph (e.g., 2-hop or 3-hop neighbors), effectively learning a high-level representation of its structural role \cite{methods2020zhou}.
+
+\section{Taxonomy of Core GNN Architectures}
+
+Graph Neural Networks have evolved into four primary categories based on their architectural design and information processing mechanisms: Recurrent GNNs, Convolutional GNNs, Graph Autoencoders, and Spatial-Temporal GNNs \cite{comprehensive2021wu}.
+
+\subsection{Recurrent Graph Neural Networks (RecGNNs)}
+Recurrent GNNs represent the pioneer works in this field. They operate on the principle of applying the same set of parameters recurrently over nodes to extract high-level representations. The fundamental idea is that a node constantly exchanges information with its neighbors until a stable equilibrium (or fixed point) is reached \cite{comprehensive2021wu}. While conceptually important for establishing the idea of message passing, RecGNNs are often computationally expensive due to the iterative process required to ensure convergence.
+
+\subsection{Convolutional Graph Neural Networks (ConvGNNs)}
+ConvGNNs generalize the operation of convolution from grid-based data (images) to graph data. Unlike RecGNNs, ConvGNNs stack multiple layers with different weights to extract high-level representations without requiring convergence to a fixed point \cite{comprehensive2021wu}. These approaches are broadly categorized into two streams:
+
+\subsubsection{Spectral-based Approaches}
+Spectral-based methods have a solid mathematical foundation in graph signal processing. They define graph convolution in the spectral domain using the eigenvectors of the graph Laplacian matrix \cite{methods2020zhou}. Early methods were computationally intensive, but subsequent approximations, such as ChebNet and the Graph Convolutional Network (GCN), simplified the process to allow efficient convolution by approximating the spectral filter with polynomials, avoiding the need for expensive eigen-decomposition \cite{comprehensive2021wu}.
+
+\subsubsection{Spatial-based Approaches}
+Spatial-based methods define graph convolutions directly on the graph structure rather than in the spectral domain. This approach is analogous to the convolutional operation of a CNN, where a kernel aggregates features from a node's spatial neighbors \cite{comprehensive2021wu}.
+% \begin{itemize}
+%     \item \textbf{GraphSAGE:} A prominent example that generates embeddings by sampling a fixed neighborhood size and aggregating features (e.g., via mean or LSTM aggregators), making it scalable to large graphs \cite{review2024khemani}.
+%     \item \textbf{Graph Attention Networks (GAT):} This architecture introduces an attention mechanism that allows nodes to assign different importance weights to different neighbors, rather than treating all neighbors equally \cite{methods2020zhou}.
+% \end{itemize}
+
+\subsection{Graph Autoencoders (GAEs)}
+Graph Autoencoders are unsupervised learning frameworks used to learn network embeddings or generative distributions \cite{comprehensive2021wu}. They typically utilize an Encoder-Decoder architecture:
+\begin{itemize}
+    \item The \textbf{Encoder} uses GNN layers to map nodes into a low-dimensional latent vector space.
+    \item The \textbf{Decoder} attempts to reconstruct the graph structure (e.g., the adjacency matrix) from these latent representations.
+\end{itemize}
+These models are widely used for tasks such as link prediction and graph generation \cite{selfsupervised2022xie}.
+
+\subsection{Spatial-Temporal Graph Neural Networks (STGNNs)}
+Many real-world graphs, such as traffic networks or human motion graphs, are dynamic. STGNNs aim to model these dependencies by capturing both spatial and temporal patterns simultaneously. These models typically integrate graph convolutions to capture spatial dependency with sequence modeling architectures, such as Recurrent Neural Networks (RNNs) or Convolutional Neural Networks (CNNs), to model temporal dependency \cite{comprehensive2021wu}.
+
+\section{Advanced GNN Learning Paradigms}
+
+While foundational GNN architectures have achieved success on static benchmarks, real-world data often requires more complex handling of time-evolving structures and label scarcity. This section reviews two advanced paradigms: Dynamic Graph Neural Networks and Self-Supervised Learning.
+
+\subsection{Dynamic Graph Neural Networks}
+
+
+% [Image of Discrete vs Continuous dynamic graph representations]
+
+Dynamic Graph Neural Networks (DGNNs) extend standard GNNs to capture the temporal evolution of real-world networks alongside their structural topology \cite{dynamic2025zheng}. These models are categorized by their temporal granularity:
+
+\begin{itemize} 
+    \item \textbf{Discrete-Time Dynamic Graphs (DTDGs):} These represent graphs as sequences of static snapshots taken at fixed intervals. They typically employ static GNNs for structural encoding and sequence models (e.g., RNNs, LSTMs) to model temporal dependencies \cite{dynamic2025zheng}.
+    
+    \item \textbf{Continuous-Time Dynamic Graphs (CTDGs):} These treat graphs as streams of timestamped events. CTDG models update node embeddings in real-time using mechanisms like temporal point processes or memory modules to track fine-grained interaction history \cite{dynamic2025zheng}.
+\end{itemize}
+
+\subsection{Self-Supervised Learning on Graphs}
+
+Labeling graph data is often expensive or impractical. Self-Supervised Learning (SSL) addresses this by training GNNs on unlabeled data to learn generalized representations that can be fine-tuned for downstream tasks \cite{selfsupervised2022xie}. SSL methods on graphs are primarily divided into two categories:
+
+\subsubsection{Contrastive Learning Models}
+Contrastive methods aim to maximize the agreement (mutual information) between different "views" of the same graph instance while minimizing agreement with other instances. A view is typically generated via data augmentation, such as node dropping, edge perturbation, or subgraph sampling. The model is trained to pull positive pairs (augmentations of the same graph) closer in the embedding space and push negative pairs apart \cite{selfsupervised2022xie}.
+
+\subsubsection{Predictive Learning Models}
+Predictive methods generate self-supervision signals from the data itself without requiring data-data pairs. These models typically perform auxiliary tasks, such as:
+\begin{itemize}
+    \item \textbf{Graph Reconstruction:} Training an encoder-decoder architecture to reconstruct the adjacency matrix or masked node features.
+    \item \textbf{Property Prediction:} Predicting statistical properties of the graph (e.g., node degree or centrality) or domain-specific properties (e.g., molecular motifs) to force the encoder to learn structural semantics \cite{selfsupervised2022xie}.
+\end{itemize}
+
+\section{Challenges in Real-World Scenarios}
+
+Deploying GNNs in practical applications introduces challenges that go beyond standard benchmarks. Two critical areas of recent research focus on the structural assumption of homophily and the reliability of data quality.
+
+\subsection{Heterophily vs. Homophily in Graphs}
+
+Most standard GNNs (like GCN and GraphSAGE) operate under the assumption of \textit{homophily}, where connected nodes are likely to share the same label or similar features. However, many real-world graphs exhibit \textit{heterophily} (or disassortativity), where connected nodes are dissimilar (e.g., fraudsters connecting to regular users in transaction networks, or amino acids of different types linking in protein structures) \cite{heterophily2021zheng}.
+
+\subsubsection{Limitations of Homophilic GNNs}
+When applied to heterophilic graphs, standard message passing essentially performs "smoothing," which dilutes the distinct features of a node by averaging them with dissimilar neighbors. This leads to indistinguishable representations and poor classification performance \cite{heterophily2021zheng}.
+
+\subsubsection{Architectural Solutions}
+To address this, researchers have developed specialized architectures:
+\begin{itemize}
+    \item \textbf{Non-local Neighbor Extensions:} These methods break the limitation of aggregating only from direct neighbors. They seek to connect nodes with similar features even if they are distant in the graph topology, effectively "rewiring" the graph to increase homophily \cite{heterophily2021zheng}.
+    \item \textbf{Architecture Refinement:} This involves modifying the aggregation stage to distinguish between helpful (homophilic) and harmful (heterophilic) messages, often by assigning learnable weights to neighbors or separating ego-node embeddings from neighbor embeddings \cite{heterophily2021zheng}.
+\end{itemize}
+
+\subsection{Data Quality and Reliability}
+Real-world data is rarely ideal. Several factors can severely degrade GNN performance if not explicitly addressed \cite{realworld2025ju}:
+
+\begin{itemize}
+    \item \textbf{Class Imbalance:} Real-world graphs often follow a power-law distribution where a few classes dominate (e.g., normal transactions vs. rare fraud cases). Standard training can bias the model toward the majority class, necessitating re-balancing strategies or topology-aware loss functions \cite{realworld2025ju}.
+    
+    \item \textbf{Noise:} Graphs may contain noise in both the structure (spurious or missing edges) and the node attributes (erroneous feature data). Robust GNNs employ techniques like structure learning to "denoise" the graph connectivity during training \cite{realworld2025ju}.
+    
+    \item \textbf{Privacy:} GNNs are vulnerable to privacy attacks, such as membership inference (determining if a node was in the training set). Defense mechanisms include Differential Privacy and Federated Learning, which allow training on decentralized data without exposing raw graph structures \cite{realworld2025ju}.
+    
+    \item \textbf{Out-of-Distribution (OOD):} A critical challenge is generalizing to graphs that differ statistically from the training set (e.g., training on small molecular graphs and testing on larger ones). OOD research focuses on invariant learning and causal inference to improve model robustness against distribution shifts \cite{realworld2025ju}.
+\end{itemize}
+
+\section{Applications of GNNs}
+
+The versatility of Graph Neural Networks has led to their adoption across a wide spectrum of domains. Applications are generally categorized into two scenarios: structural scenarios, where the data is naturally graph-structured, and non-structural scenarios, where the data (such as images or text) is converted into a graph format to capture implicit dependencies \cite{methods2020zhou, review2024khemani}.
+
+\subsection{Structural Scenarios}
+In these domains, the explicit relational structure is key to the problem definition.
+\begin{itemize}
+    \item \textbf{Physics and Chemistry:} GNNs are used to model physical systems, such as particle interactions or robotic components \cite{methods2020zhou}. In chemistry, molecular graphs (where atoms are nodes and bonds are edges) are used for molecular fingerprinting, chemical reaction prediction, and drug discovery \cite{review2024khemani, methods2020zhou}.
+    
+    \item \textbf{Bioinformatics:} GNNs facilitate protein interface prediction and disease classification by modeling protein-protein interaction networks \cite{methods2020zhou}.
+    
+    \item \textbf{Knowledge Graphs:} These graphs represent real-world entities and their relationships. GNNs are employed for knowledge base completion (predicting missing links) and alignment across different languages \cite{methods2020zhou}.
+    
+    \item \textbf{Recommender Systems:} GNNs model the interactions between users and items as a bipartite graph. This allows systems to leverage high-order connectivity to predict user preferences and improve recommendation accuracy \cite{comprehensive2021wu, methods2020zhou}.
+\end{itemize}
+
+\subsection{Non-Structural Scenarios}
+In these domains, GNNs are used to reason about the structure extracted from unstructured data.
+\begin{itemize}
+    \item \textbf{Computer Vision:} Images can be represented as graphs where objects are nodes and their spatial relationships are edges. GNNs are used for scene graph generation, point cloud classification, and visual question answering \cite{comprehensive2021wu, methods2020zhou}.
+    
+    \item \textbf{Natural Language Processing (NLP):} Text can be modeled as a graph of words or sentences to capture long-distance semantic dependencies. Applications include text classification, sequence labeling, and neural machine translation, where GNNs operate on syntactic dependency trees \cite{review2024khemani, methods2020zhou}.
+\end{itemize}
+
+\section{Summary of Research Gaps}
+
+Despite the rapid advancements in GNN architectures, several critical research gaps remain, which motivate the comparative analysis undertaken in this project:
+
+\begin{itemize}
+    \item \textbf{Scalability vs. Accuracy Trade-offs:} While spectral-based models like GCN provide a strong theoretical foundation, they often require full-batch training, which leads to memory bottlenecks on large datasets \cite{comprehensive2021wu}. Conversely, spatial-based sampling methods like GraphSAGE address scalability but introduce approximation errors. There is a need to systematically quantify this trade-off on standard benchmarks.
+    
+    \item \textbf{The Homophily Assumption:} Most foundational GNNs (including GCN and GraphSAGE) rely on the assumption of homophily \cite{heterophily2021zheng}. While recent research has proposed specialized architectures for heterophilic graphs, it is essential to first establish a solid baseline of how standard architectures perform on homophilic citation networks to better understand their limitations in diverse real-world scenarios \cite{heterophily2021zheng}.
+    
+    \item \textbf{Complexity of Implementation:} With the explosion of advanced variants (Dynamic, Self-Supervised), the landscape has become complex. A focused empirical evaluation of the fundamental "backbone" architectures (GCN and GraphSAGE) provides a necessary reference point for understanding the incremental gains offered by more complex models \cite{realworld2025ju}.
+\end{itemize}

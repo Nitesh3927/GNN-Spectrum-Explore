@@ -1,0 +1,8 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Training Accuracy vs. Epochs and Time for the Cora Dataset.}}{15}{}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Training Accuracy vs. Epochs and Time for the PubMed Dataset.}}{15}{}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Visualization of a 2-hop subgraph from the Cora dataset centered on a high-degree node. Red indicates the central node, while blue indicates neighbors.}}{16}{}%
+\addvspace {10\p@ }
