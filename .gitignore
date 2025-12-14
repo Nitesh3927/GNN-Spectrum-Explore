@@ -6,3 +6,7 @@ report_latex/main.fdb_latexmk
 *.fls
 report_latex/main.log
 report_latex/main.synctex.gz
+report_latex/main.fls
+report_latex/main.log
+report_latex/main.log
+/report_latex
